@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+        <title>Luigi's</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'ordering system/fonts/beyond_the_mountains-webfont.css' %}" type="text/css"/>
+
+        <!-- Stylesheets -->
+        <link href="/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="/plugin-frameworks/swiper.css" rel="stylesheet">
+        <link href="/common/styles.css" rel="stylesheet">
+        <link href="/css/custom.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+    <header>
+            <div class="container">
+                    <a class="logo" href="#"><img src="/images/logo-white.png" alt="Logo"></a>
+
+                    <div class="right-area">
+                            <h6><a class="plr-20 color-white btn-fill-primary" href="#"><i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i></a></h6>
+                    </div><!-- right-area -->
+
+                    <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+
+                    <ul class="main-menu font-mountainsre" id="main-menu">
+                            <li><a href="/home">HOME</a></li>
+                            <li><a href="/cart">CART</a></li>
+                    </ul>
+
+                    <div class="clearfix"></div>
+            </div><!-- container -->
+    </header>
+
+    <section class="bg-1 h-900x main-slider pos-relative">
+        <div class="triangle-up pos-bottom"></div>
+        <div class="container h-100">
+                <div class="dplay-tbl">
+                        <div class="dplay-tbl-cell center-text color-white">
+
+                                <h5><b>BEST IN TOWN</b></h5>
+                                <h1 class="mt-30 mb-15">Pizza & Pasta</h1>
+                                <h5><a href="{% url 'ordering-system-order-rest-view' %}" class="btn-primaryc plr-25"><b>SEE TODAYS MENU</b></a></h5>
+                        </div><!-- dplay-tbl-cell -->
+                </div><!-- dplay-tbl -->
+        </div><!-- container -->
+</section>
+
+
+<section class="story-area left-text center-sm-text pos-relative">
+{#        <div class="abs-tbl bg-2 w-20 z--1 dplay-md-none"></div>#}
+{#        <div class="abs-tbr bg-3 w-20 z--1 dplay-md-none"></div>#}
+        <div class="pos-top triangle-bottom"></div>
+        <div class="container">
+                <div class="heading">
+                        <img class="heading-img" src="{% static 'ordering system/images/heading_logo.png' %}" alt="">
+                        <h2>Our Menu</h2>
+                </div>
+
+                <div class="row">
+                    {% for pizza in pizzas %}
+                        <div class="col-lg-3 col-md-4  col-sm-6 ">
+                                <div class="center-text mb-30">
+                                        <div class="ïmg-200x mlr-auto pos-relative">
+                                                {% if pizza.speciality %}
+                                                    <h6  class="ribbon-cont"><div class="ribbon secondary"></div><b>SPECIALITY</b></h6>
+                                                {% endif %}
+                                                <img src="{{ pizza.image.url }}" alt="">
+                                        </div>
+                                        <h4 class="mt-20">{{ pizza.flavour }}</h4>
+                                        <h5 class="mt-5"><b>Rs.{{ pizza.small_price|floatformat:0 }}|{{ pizza.regular_price|floatformat:0 }}|{{ pizza.large_price|floatformat:0 }}</b></h5>
+                                        <div class="dropdown">
+                                                <button class="dropdown-toggle mt-20 btn-brdr-primary plr-25" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        BUY
+                                                </button>
+                                                <div class="dropdown-menu pizza_forms" aria-labelledby="dropdownMenuButton">
+                                                        <form id="myForm" class="m-2">
+                                                                <input type="radio" id="male" name="size" value="{{ pizza.id }}_small_{{ pizza.flavour }}_{{ pizza.small_price }}" required>
+                                                                <label for="male">Small | Rs.{{ pizza.small_price }}</label><br>
+                                                                <input type="radio" id="female" name="size" value="{{ pizza.id }}_regular_{{ pizza.flavour }}_{{ pizza.regular_price }}" required>
+                                                                <label for="female">Regular | Rs.{{ pizza.regular_price }}</label><br>
+                                                                <input type="radio" id="other" name="size" value="{{ pizza.id }}_large_{{ pizza.flavour }}_{{ pizza.large_price }}" required>
+                                                                <label for="other">Large | Rs.{{ pizza.large_price }}</label>
+                                                                <br>
+                                                                <button class="btn-brdr-primary plr-25">Add to cart</button>
+                                                        </form>
+                                                </div>
+                                        </div>
+                                </div><!--text-center-->
+                        </div><!-- col-md-3 -->
+                    {% endfor %}
+                </div><!-- row -->
+
+                <h6 class="center-text mt-40 mt-sm-20 mb-30"><a href="{% url 'ordering-system-cart' %}" class="btn-primaryc plr-25"><b>GO TO CART</b></a></h6>
+                <h6 class="center-text mt-40 mt-sm-20 mb-30"><a id="clear_cart" href="#" class="btn-brdr-primary plr-25"><b>CLEAR CART</b></a></h6>
+        </div><!-- container -->
+</section>
+
+    
+
+
+
+    <div id="snackbar"></div>
+
+    <footer class="pb-50  pt-70 pos-relative">
+        <div class="pos-top triangle-bottom"></div>
+        <div class="container-fluid">
+                <a href="index.html"><img src="images/logo-white.png" alt="Logo"></a>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary"><b>Address:</b></p>
+                        <p>481 Creekside Lane Avila Beach, CA 93424 </p>
+                </div>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary mb-10"><b>Phone:</b></p>
+                        <a href="tel:+53 345 7953 32453 ">+53 345 7953 32453 </a>
+                </div>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary mb-10"><b>Email:</b></p>
+                        <a href="mailto:yourmail@gmail.com"> yourmail@gmail.com</a>
+                </div>
+    
+                <ul class="icon mt-30">
+                        <li><a href="#"><i class="ion-social-pinterest"></i></a></li>
+                        <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="ion-social-dribbble-outline"></i></a></li>
+                        <li><a href="#"><i class="ion-social-linkedin"></i></a></li>
+                        <li><a href="#"><i class="ion-social-vimeo"></i></a></li>
+                </ul>
+    
+                <p class="color-light font-9 mt-50 mt-sm-30" hidden><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div><!-- container -->
+    </footer>
+
+<!-- SCIPTS -->
+<script src="/plugin-frameworks/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="/plugin-frameworks/bootstrap.min.js"></script>
+<script src="/plugin-frameworks/swiper.js"></script>
+<script src="/common/scripts.js"></script>
+
+</body>
+</html>

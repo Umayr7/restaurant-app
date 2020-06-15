@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>ADMIN PANEL</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body style="background-color: #c5cae9;"> 
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+				<div class="p-4">
+		  		<h1><a href="index.html" class="logo">PANEL</a></h1>
+	        <ul class="list-unstyled components mb-5">
+	          <li class="active">
+	            <a href="/admin/panel"><span class="fa fa-home mr-3"></span> Home</a>
+	          </li>
+	          <li>
+	              <a href="#"><span class="fa fa-money mr-3"></span> Orders</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-sticky-note mr-3"></span> Manage</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-paper-plane mr-3"></span> Contact Dev</a>
+	          </li>
+	        </ul>
+<!-- 
+	        <div class="mb-5">
+						<h3 class="h6 mb-3">Subscribe for newsletter</h3>
+						<form action="#" class="subscribe-form">
+	            <div class="form-group d-flex">
+	            	<div class="icon"><span class="icon-paper-plane"></span></div>
+	              <input type="text" class="form-control" placeholder="Enter Email Address">
+	            </div>
+	          </form>
+					</div> -->
+
+	        <div class="footer">
+	        	<p hidden><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	        </div>
+
+	      </div>
+        </nav>
+        <div class="container" style="margin-left: 500px; margin-right: 108px; margin-top: 15px;">
+            <div class="navbar navbar-inverse navbar-static-top">
+                <div class="container">
+                    <a href="#" class="navbar-brand">Admin Dashboard</a>
+                    <a href="/admin/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5"style="margin: 100px; margin-left: -480px;">
+        <!-- <h2 class="mb-4" style="margin: 100px; margin-left: -480px;"><strong>ADMIN DASHBOARD</strong></h2> -->
+        <div class="row" style="margin-left: 30px;">
+            <div style="background-color: #4a148c ; margin-left: -600px; width: 80%;">
+              <div class="card-header">
+                <a href="panel/menu"> Manage Menu </a> 
+            </div>
+              <div class="card-body">
+                <p class="card-text">View all menus, Insert new Menu, Edit any current menu, Delete any menu...</p>
+              </div>
+            </div>
+            <!-- <div style="background-color: #4a148c ; margin-left: 100px; width: 80%;">
+              <div class="card-header">
+                <a href="#"> Manage Cheif </a> 
+            </div>
+              <div class="card-body">
+                <p class="card-text">View all chiefs, Insert new chief, Edit any current chief, Delete any chief...</p>
+              </div>
+            </div> -->
+            <div style="background-color: #4a148c ; margin-left: 100px; width: 80%;">
+              <div class="card-header">
+                <a href="panel/customers"> Manage Customers </a> 
+              </div>
+            <div class="card-body">
+              <p class="card-text">View all customers...</p>
+            </div>
+          </div>
+        </div><br>
+        <div class="row"style="margin-left: 30px;">
+            <div style="background-color: #4a148c ; margin-left: -600px; width: 80%;">
+              <div class="card-header">
+                <a href="panel/orders"> Manage Orders </a> 
+              </div>
+              <div class="card-body">
+                <p class="card-text">View all orders...</p>
+              </div>
+            </div>
+            <!-- <div style="background-color: #4a148c ; margin-left: 100px; width: 80%;">
+                <div class="card-header">
+                  <a href="panel/customers"> Manage Customers </a> 
+                </div>
+              <div class="card-body">
+                <p class="card-text">View all customers...</p>
+              </div>
+            </div> -->
+        </div>        
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

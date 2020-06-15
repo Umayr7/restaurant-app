@@ -1,0 +1,17 @@
+<html>
+<head>
+    <%- include('head'); %>
+    <style>
+        /* *{border-radius: 0px !important;} */
+    </style>
+       <script type="text/javascript">
+        function makeItPass()
+        {
+           document.getElementById("passcontainer")
+              .innerHTML = "<input id=\"password\" name=\"password\" type=\"password\" class='form-control' placeholder='Enter password' />";
+            // input.classList.add('btn btn-primary')
+           document.getElementById("password").focus();
+        }
+     </script>
+</head>
+<body>

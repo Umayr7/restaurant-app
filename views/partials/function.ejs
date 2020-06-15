@@ -1,0 +1,15 @@
+<% function isEmpty(obj) { %>
+    <% for(var key in obj) { %>
+        <% if(obj.hasOwnProperty(key)) %>
+            <% return false; %>
+    <% } %>
+    <% return true; %>
+<% } %>
+
+<% if(!user_obj.isEmpty()) { %>
+    <li> <a> <%= user_obj.f_name %> </a> </li>
+    <li><a href="/logout">LOGOUT</a></li>
+<% } else { %>
+    <li><a href="/register">SIGNUP</a></li>
+    <li><a href="/login">LOGIN</a></li>
+<% } %>

@@ -1,0 +1,109 @@
+<%- include('partials/header'); %>
+
+<section class="bg-1 h-900x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+    <div class="container h-100">
+            <div class="dplay-tbl" style="margin-top: -100px;">
+                    <div class="dplay-tbl-cell center-text color-white">
+                            <h1 class="mt-30 mb-15">Register Now</h1>
+                            <div class="container" style="margin-top: -250px;">
+                                    <div class="row justify-content-center align-items-center" style="height:100vh">
+                                        <div class="col-4">
+                                            <div class="card">
+                                                <div class="card-body" style="margin-top: 280px;">
+                                                    
+                                                    <form action="http://localhost:8000/register" method="POST" autocomplete="off">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" value= "<%= validatedData.user_first_name %>"  placeholder="Enter First Name" name="user_first_name">
+                                                            <% if(errors.user_first_name) { %>
+                                                                <div id="mydiv1" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_first_name.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="user_last_name"  value= "<%= validatedData.user_last_name %>" placeholder="Enter Last Name">
+                                                            <% if(errors.user_last_name) { %>
+                                                                <div id="mydiv2" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_last_name.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="user_email" value= "<%= validatedData.user_email %>" placeholder="Enter Email Address">
+                                                            <% if(errors.user_email) { %>
+                                                                <div id="mydiv3" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_email.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="tel" class="form-control" name="user_phone_no" value= "<%= validatedData.user_phone_no %>" placeholder="Enter Phone Number">
+                                                            <% if(errors.user_phone_no) { %>
+                                                                <div id="mydiv4" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_phone_no.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="user_address" value= "<%= validatedData.user_address %>" placeholder="Enter Resedential Address">
+                                                            <% if(errors.user_address) { %>
+                                                                <div id="mydiv5" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_address.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" name="user_password" value= "<%= validatedData.user_password %>" placeholder="Enter Password">
+                                                            <% if(errors.user_password) { %>
+                                                                <div id="mydiv6" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_password.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" name="user_cpassword" value= "<%= validatedData.user_cpassword %>" placeholder="Enter Password">
+                                                            <% if(errors.user_cpassword) { %>
+                                                                <div id="mydiv7" class="container" style="margin-left: 350px; margin-top: -50px;">
+                                                                    <div class="alert alert-danger">
+                                                                        <%= errors.user_cpassword.msg %>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                        <input type="submit" name="submit" value="Login" id="sendlogin" class="btn btn-primary">
+                                                        <!-- <button type="submit" id="sendlogin" class="btn btn-primary">login</button> -->
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
+
+                            <!-- <h5><a href="#" class="btn-primaryc plr-25"><b>SEE TODAYS MENU</b></a></h5> -->
+                    </div><!-- dplay-tbl-cell -->
+            </div><!-- dplay-tbl -->
+    </div><!-- container -->
+</section>
+
+<!-- SCIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/plugin-frameworks/jquery-3.2.1.min.js"></script>
+<script src="/plugin-frameworks/bootstrap.min.js"></script>
+<script src="/plugin-frameworks/swiper.js"></script>
+<script src="/common/scripts.js"></script>
+<script src="/js/main.js"></script>
+
+<%- include('partials/footer'); %>

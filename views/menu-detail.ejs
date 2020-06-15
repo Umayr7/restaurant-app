@@ -1,0 +1,140 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>eCommerce Product Detail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	<link href="/css/custom.css" rel="stylesheet">
+
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+<!-- <link rel="stylesheet" href="/fonts/beyond_the_mountains-webfont.css" type="text/css"/> -->
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+<link href="/plugin-frameworks/swiper.css" rel="stylesheet">
+<link href="/fonts/ionicons.css" rel="stylesheet">
+<link href="/common/styles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+	<header>
+		<div class="container">
+			<a class="logo" href="/"><img src="/images/logo-white.png" alt="Logo"></a>
+				
+			<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+			
+	
+				<ul class="main-menu font-mountainsre" id="main-menu">
+						
+					<div class="right-area">
+							<a class="plr-20 color-white btn-fill-primary" href="/checkout"><i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
+					</div><!-- right-area -->
+					<li><a href="/">HOME</a></li>
+					<li><a href="/about">ABOUT US</a></li>
+					<li><a href="/service">SERVICES</a></li>
+					<li><a href="/contact">CONTACT</a></li>    
+					<li><a href="/cart">CART</a></li>      
+					<% if(user_obj.f_name) { %>
+							<li> <a> <%= user_obj.f_name %> </a> </li>
+							<li><a href="/logout">LOGOUT</a></li>
+					<% } else { %>
+							<li><a href="/register">SIGNUP</a></li>
+							<li><a href="/login">LOGIN</a></li>
+					<% } %>
+				</ul>
+			
+			<div class="clearfix"></div>
+		</div><!-- container -->
+	</header>
+	
+	
+
+	<div class="container" style="margin-top: 150px;">
+		<%- messages('message', locals) %>
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
+						<div class="preview-pic tab-content">
+						  <!-- <div class="tab-pane active" id="pic-1"><img src="<%= item[0].menu_image %>" /></div> -->
+						  <div class="ïmg-200x mlr-auto pos-relative"><img src="/<%= item[0].menu_image %>" alt=""></div>
+						</div>
+					</div>
+					<div class="details col-md-6">
+						<h3 class="product-title"><%= item[0].menu_name %></h3>
+						<div class="rating">
+							<div class="stars">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<span class="review-no">41 reviews</span>
+						</div>
+						<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+						<form method="POST" action="http://localhost:8000/menu-detail/<%= item[0].menu_id %>">
+							<h4> <label class="price" for="price1"> 
+								<input type="checkbox" id="price1" name="menu_price_regular" value="regular">
+								REGULAR PIZZA: <span> Rs. <%= item[0].menu_price_regular %>/- </span> 
+							</label><br> </h4>						
+							<h4> <label class="price" for="price2"> 
+								<input type="checkbox" id="price2" name="menu_price_large" value="large">
+								LARGE PIZZA: <span> Rs. <%= item[0].menu_price_large %>/- </span> 
+							</label><br> </h4>						
+							<h4> <label class="price" for="price3"> 
+								<input type="checkbox" id="price3" name="menu_price_xlarge" value="xlarge">
+								EXTRA LARGE PIZZA: <span> Rs. <%= item[0].menu_price_xlarge %>/- </span> 
+							</label><br> </h4>
+							<div class="action">
+                                <!-- <input type="submit" name="submit" value="submit" class="btn btn-primary btn-lg"style="margin-left: -100px;" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" /> -->
+								<!-- <a href="/menu-detail/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="submit">submit</button> </a> -->
+								<!-- <a href="/cart/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="button">add to cart</button> </a> -->
+								<!-- <input type="submit" name="Checkout" value="Checkout" class="add-to-cart btn btn-default" onclick="location.href='/checkout-bypass/<%= item[0].menu_id %>';" /> -->
+								<!-- <a href="/checkout-request/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="button">Checkout</button> </a> -->
+                                <!-- <input type="submit" name="Add to Cart" value="Add to Cart" class="add-to-cart btn btn-default" onclick="location.href='/cart/<%= item[0].menu_id %>';" /> -->
+								
+								
+								<input type="submit" name="Cart" value="Add To Cart" class="add-to-cart btn btn-default" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />
+								<input type="submit" name="Checkout" value="Checkout" class="add-to-cart btn btn-default" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />
+								
+								
+								<!-- <a href="/menu-detail/<%= item[0].menu_id %>"> <button class="
+                                <input type="submit" name="submit" value="submit" class="btn btn-primary btn-lg"style="margin-left: -100px;" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />" type="button">Checkout</button> </a> -->
+							</div>
+						</form>
+						<!-- <h4 class="price">REGULAR PIZZA: <span>Rs. <%= item[0].menu_price_regular %>/-</span></h4>
+						<h4 class="price">LARGE PIZZA: <span>Rs. <%= item[0].menu_price_large %>/-</span></h4>
+						<h4 class="price">EXTRA LARGE PIZZA: <span>Rs. <%= item[0].menu_price_xlarge %>/-</span></h4> -->
+						<!-- <h5 class="sizes">sizes:
+							<span class="size" data-toggle="tooltip" title="small">Regular</span>
+							<span class="size" data-toggle="tooltip" title="large">Large</span>
+							<span class="size" data-toggle="tooltip" title="xl">XL</span>
+						</h5> -->
+						<!-- <h5 class="colors">colors:
+							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+							<span class="color green"></span>
+							<span class="color blue"></span>
+						</h5> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+</html>

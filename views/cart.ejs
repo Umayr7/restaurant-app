@@ -1,0 +1,80 @@
+<%- include('partials/header'); %>
+
+<header>
+        <div class="container">
+            <a class="logo" href="/"><img src="/images/logo-white.png" alt="Logo"></a>
+                
+            <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+            
+    
+                <ul class="main-menu font-mountainsre" id="main-menu">
+                        
+                    <div class="right-area">
+                            <a class="plr-20 color-white btn-fill-primary" href="/checkout"><i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
+                    </div><!-- right-area -->
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/about">ABOUT US</a></li>
+                    <li><a href="/service">SERVICES</a></li>
+                    <li><a href="/contact">CONTACT</a></li>    
+                    <li><a href="/cart">CART</a></li>      
+                    <% if(user_obj.f_name) { %>
+                            <li> <a> <%= user_obj.f_name %> </a> </li>
+                            <li><a href="/logout">LOGOUT</a></li>
+                    <% } else { %>
+                            <li><a href="/register">SIGNUP</a></li>
+                            <li><a href="/login">LOGIN</a></li>
+                    <% } %>
+                </ul>
+            
+            <div class="clearfix"></div>
+        </div><!-- container -->
+    </header>
+
+
+<section class="bg-7 h-500x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+    <div class="container h-100">
+            <div class="dplay-tbl">
+                    <div class="dplay-tbl-cell center-text color-white pt-90">
+                            <h5><b>THE BEST IN TOWN</b></h5>
+                            <h3 class="mt-30 mb-15">Your Cart</h3>
+                    </div><!-- dplay-tbl-cell -->
+            </div><!-- dplay-tbl -->
+    </div><!-- container -->
+</section>
+
+
+<section class="story-area left-text center-sm-text">
+    <div class="container heading">
+        <table id="table" class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+        <div class="heading">
+                <h3>Your Details</h3>
+        </div>
+        <form id="order-form" class="form-style-1 placeholder-1">
+                    <div class="row">
+                            <div class="col-md-6"> <input class="mb-20" type="text" name="name" placeholder="Full Name" required>  </div>
+                            <div class="col-md-6"> <input class="mb-20" type="email" name="email" placeholder="E-mail" required>  </div>
+                            <div class="col-md-12"><input class="mb-20" type="text" name="address" placeholder="Address" required>  </div>
+                            <div class="col-md-12"><input class="h-200x ptb-20" type="text" name="instructions" placeholder="Any extra instructions"></input></div>
+                    </div><!-- row -->
+                    <h6 id="place-order-btn" class="center-text mtb-30"><button type="submit" href="#" class="btn-primaryc plr-25"><b>PLACE ORDER</b></button></h6>
+            </form>
+            </div><!-- container -->
+    </section>
+
+
+<%- include('partials/footer'); %>
