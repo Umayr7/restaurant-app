@@ -898,12 +898,12 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
             port: 587,
             secure: false,
             auth: {
-                user: 'postmaster@sandbox13ab4f53b36c4aa4aa5b52cda5bc62c9.mailgun.org',
-                pass: '4974219f5dfef5d605d6b86409b8f7a4-8b34de1b-d21fbe15'
+                user: , //set email
+                pass: //set pass
             }
         })
         var mailOptions = {
-            from: 'postmaster@sandbox13ab4f53b36c4aa4aa5b52cda5bc62c9.mailgun.org',
+            from: , // set email
             to: u_email,
             subject: 'Sending email using nodemailer!',
             text: mail
