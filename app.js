@@ -29,6 +29,7 @@ var check_price = 0
 let o_id
 let get_price
 var checkout_detail = {}
+var PORT = process.env.PORT || 8000
 
 //for parsing data...
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -575,12 +576,10 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
             port: 587,
             secure: false,
             auth: {
-                user: , //admin email
-                pass: //admin password
             }
         })
         var mailOptions = {
-            from: ,//admin email
+            
             to: u_email,
             subject: 'Sending email using nodemailer!',
             text: mail
@@ -647,6 +646,6 @@ let admin = require('./routes/admin')
 app.use('/admin', admin)
 
 //Setting server
-var server = app.listen(8000, ()=>{
+var server = app.listen(PORT, ()=>{
     console.log('Server started on port 8000...');
 })
