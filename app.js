@@ -575,21 +575,12 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
             port: 587,
             secure: false,
             auth: {
-<<<<<<< HEAD
                 user: , //admin email
                 pass: //admin password
             }
         })
         var mailOptions = {
             from: ,//admin email
-=======
-                user: , //set email
-                pass: //set pass
-            }
-        })
-        var mailOptions = {
-            from: , // set email
->>>>>>> fb22eeabf16da4d402010caf69dd9898b88a2fd2
             to: u_email,
             subject: 'Sending email using nodemailer!',
             text: mail
