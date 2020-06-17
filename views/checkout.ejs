@@ -76,7 +76,6 @@
                                         <th style="width:1%; text-align:center">ID</th>
                                         <th style="width:49%;">Menu Name</th>
                                         <th style="width:20%;">Price</th>
-                                        <th style="width:20%; text-align: center;">Delete</th>
                                     </tr>
                                 </thread>
                                 <tbody>
@@ -88,9 +87,6 @@
                                             <td style="width:1%; text-align: center"><%= index + 1 %></td>
                                             <td style="width:49%;"><%= item.menu_name %></td>
                                             <td style="width:49%;"><%= item.price %></td>
-                                            <td solspane="2" style="width:20%; text-align: center;">
-                                                <a href="/admin/panel/customers/delete/<%= item.user_id %>" class="btn btn-danger">Delete</a>
-                                            </td>
                                         </tr>
                                     <% }); %>
                                 </tbody>
