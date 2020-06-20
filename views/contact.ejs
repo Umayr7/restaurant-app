@@ -10,13 +10,11 @@
                 <ul class="main-menu font-mountainsre" id="main-menu">
                         
                     <div class="right-area">
-                            <a class="plr-20 color-white btn-fill-primary" href="/checkout"><i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
+                            <a class="plr-20 color-white btn-fill-primary" href="/checkout">  <i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
                     </div><!-- right-area -->
                     <li><a href="/">HOME</a></li>
                     <li><a href="/about">ABOUT US</a></li>
-                    <li><a href="/service">SERVICES</a></li>
-                    <li><a href="/contact">CONTACT</a></li>    
-                    <li><a href="/cart">CART</a></li>      
+                    <li><a href="/contact">CONTACT</a></li>  
                     <% if(user_obj.f_name) { %>
                             <li> <a> <%= user_obj.f_name %> </a> </li>
                             <li><a href="/logout">LOGOUT</a></li>

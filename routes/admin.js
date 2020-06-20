@@ -17,14 +17,14 @@ let user_present = 0
 
 //Multer configs for Upload Image
 const storage = multer.diskStorage({
-    destination: '../public/uploads/',
+    destination: './public/uploads/',
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 })
 
 //Init upload
-const upload = multer({
+const upload = multer({    
     storage: storage,
     limits: {fileSize: 1000000},
     fileFilter: function (req,file, cb) {
@@ -33,6 +33,8 @@ const upload = multer({
 }).single('menu_image')
 
 function checkFileType(file, cb) {
+    console.log(`SIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII`);
+    
     //Allowed ext
     const filetypes = /jpeg|jpg|png|gif/;
     //Check ext
@@ -60,7 +62,8 @@ router.get('/', (req, res)=>{
 router.post('/', (req,res, next)=>{
     console.log('post method triggered');
 
-    let sql= "SELECT * FROM user WHERE user_is_admin = '"+ 1 +"' AND user_email ='"+ req.body.user_email +"' ; SELECT * FROM user WHERE user_password ='"+ req.body.user_password +"' "
+    let sql = "SELECT * FROM user WHERE user_is_admin = '"+ 1 +"' AND user_email ='"+ req.body.user_email +"' ;"
+    sql += "SELECT * FROM user WHERE user_password ='"+ req.body.user_password +"' "
     
     db.query(sql, (err, result)=>{
             if(err)
@@ -266,14 +269,11 @@ router.post('/panel/menu/add-image', (req, res)=>{
                             if(err) throw err
                             console.log(`filename : ${path}`);
                             
-
-                            // query = "UPDATE `menu` SET `menu_image` = '"+req.file.filename+"' WHERE `menu_name` = '"+ name +"' ;"
-
-                                res.render('admin-panel-menu', {
-                                    items: result[1],
-                                    msg: 'image Uploaded',
-                                    file: `uploads/${req.file.filename}`,
-                                })
+                            res.render('admin-panel-menu', {
+                                items: result[1],
+                                msg: 'image Uploaded',
+                                file: `uploads/${req.file.filename}`,
+                            })
                         })                      
                     }
                 }

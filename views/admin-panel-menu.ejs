@@ -1,11 +1,4 @@
-<!-- <form method="POST" action="http://localhost:8000/admin/panel/menu" enctype="multipart/form-data">
-    <%= typeof msg != 'undefined' ? msg : '' %>
-    <label for="img">Select image:</label>
-    <input type="file" id="img" name="files" multiple />
-    <input type="submit">
-  </form> -->
-  
-  <!doctype html>
+<!doctype html>
   <html lang="en">
     <head>
         <title>ADMIN PANEL</title>
@@ -45,49 +38,30 @@
                       </button>
           </div>
                   <div class="p-4">
-                    <h1><a href="index.html" class="logo">PANEL</a></h1>
-              <ul class="list-unstyled components mb-5">
-                <li class="active">
-                  <a href="/admin/panel"><span class="fa fa-home mr-3"></span> Home</a>
-                </li>
-                <li>
-                    <a href="#"><span class="fa fa-money mr-3"></span> Orders</a>
-                </li>
-                <li>
-                <a href="#"><span class="fa fa-sticky-note mr-3"></span> Manage</a>
-                </li>
-                <li>
-                <a href="#"><span class="fa fa-paper-plane mr-3"></span> Contact Dev</a>
-                </li>
-              </ul>
-  <!-- 
-              <div class="mb-5">
-                          <h3 class="h6 mb-3">Subscribe for newsletter</h3>
-                          <form action="#" class="subscribe-form">
-                  <div class="form-group d-flex">
-                      <div class="icon"><span class="icon-paper-plane"></span></div>
-                    <input type="text" class="form-control" placeholder="Enter Email Address">
-                  </div>
-                </form>
-                      </div> -->
+                    <h1><a href="/admin/panel" class="logo">PANEL</a></h1>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                          <a href="/admin/panel"><span class="fa fa-home mr-3"></span> Home</a>
+                        </li>
+                        <li>
+                            <a href="/admin/panel/orders"><span class="fa fa-money mr-3"></span> Orders </a>
+                        </li>
+                        <li>
+                            <a href="/admin/panel/menu"><span class="fa fa-cutlery mr-3"></span> Menu </a>
+                        </li>
+                        <li>
+                        <a href="/admin/panel/customers"><span class="fa fa-sticky-note mr-3"></span> Customers </a>
+                        </li>
+                      </ul>
   
               <div class="footer">
-                  <p hidden><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  <p hidden> Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
                             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                             Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. </p>
               </div>
   
             </div>
           </nav>
-          <!-- <div id="content" class="container" style="margin-left: 500px; margin-top: 15px; width: 35%;">
-              <div class="navbar navbar-inverse navbar-static-top">
-                  <div class="container">
-                      <a href="#" class="navbar-brand">Admin Dashboard</a>
-                      <a href="#">Logout</a>
-                  </div>
-              </div>
-          </div> -->
-  
           <!-- Page Content  -->
           <div id="content">
               <div class="my-custom" class="col s12">
@@ -98,7 +72,7 @@
                       </div>
                   </div>
                   <div class="container">
-                      <h1>Manage customers</h1>
+                      <h1>Manage Menu</h1>
                   </div>
                   <div id="my-custom">
                       <% if (items.length > 0) { %>
@@ -134,10 +108,6 @@
                       <% }else{ %>
                           <p> <strong>There are no records available</strong> </p>
                       <% } %>
-<!-- 
-                      <div class="fab">
-                        <img src="/images/ic_window_close.png" alt="">
-                      </div> -->
                     <a class="fab" href="/admin/panel/menu/add">
                             <i style="width: 40px;" class="fa fa-plus fa-big"> </i>
  

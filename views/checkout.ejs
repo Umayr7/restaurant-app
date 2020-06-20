@@ -9,25 +9,37 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>eCommerce Product Detail</title>
+    <title>Luigi's</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 	<link href="/css/custom.css" rel="stylesheet">
 
 
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-<!-- <link rel="stylesheet" href="/fonts/beyond_the_mountains-webfont.css" type="text/css"/> -->
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="/fonts/beyond_the_mountains-webfont.css" type="text/css"/>
+    <!-- Stylesheets -->
 
-<!-- Stylesheets -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link href="/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
-<link href="/plugin-frameworks/swiper.css" rel="stylesheet">
-<link href="/fonts/ionicons.css" rel="stylesheet">
-<link href="/common/styles.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugin-frameworks/swiper.css" rel="stylesheet">
+    <link href="/fonts/ionicons.css" rel="stylesheet">
+    <link href="/common/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 
+
+    <style> 
+        body {
+            width: 1600px;
+            height: 1600px;
+        }
+        #my-custom {
+            margin-left: 10%;
+            margin-right: -200px; 
+            margin-top: 0%;
+        }
+  </style>
 
   </head>
 
@@ -42,13 +54,11 @@
                 <ul class="main-menu font-mountainsre" id="main-menu">
                         
                     <div class="right-area">
-                            <a class="plr-20 color-white btn-fill-primary" href="/checkout"> <i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
+                            <a class="plr-20 color-white btn-fill-primary" href="/checkout">  <i class="fa fa-shopping-cart" style="font-size:24px;color:white;margin-top: 10px;margin-left: 0px;"></i></a>
                     </div><!-- right-area -->
                     <li><a href="/">HOME</a></li>
                     <li><a href="/about">ABOUT US</a></li>
-                    <li><a href="/service">SERVICES</a></li>
-                    <li><a href="/contact">CONTACT</a></li>    
-                    <li><a href="/cart">CART</a></li>      
+                    <li><a href="/contact">CONTACT</a></li>  
                     <% if(user_obj.f_name) { %>
                             <li> <a> <%= user_obj.f_name %> </a> </li>
                             <li><a href="/logout">LOGOUT</a></li>
@@ -64,45 +74,104 @@
 	
 	
 
-	<div class="container" style="margin-top: 150px;">
+	<div class="container" style="margin-top: 100px;">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div id="my-custom">
                         <% if (items.length > 0) { %>
-                            <table class="table">
-                                <thread>
+                            <h1 class="mt-30 mb-15">Your Order</h1>
+                            <table class="table table-dark" style="margin-top: 50px;">
+                                <thead>
                                     <tr>
-                                        <th style="width:1%; text-align:center">ID</th>
-                                        <th style="width:49%;">Menu Name</th>
-                                        <th style="width:20%;">Price</th>
+                                        <th style="width:250px; text-align:center">ID</th>
+                                        <th style="width:0px;">Menu Name</th>
+                                        <th style="width:0px;">Price</th>
                                     </tr>
-                                </thread>
+                                </thead>
                                 <tbody>
                                     <% items.forEach(function(item, index){ %>
                                         <% if (index < 0) { %>
                                             <% index=index+1 %>
                                         <% } %>
                                         <tr>
-                                            <td style="width:1%; text-align: center"><%= index + 1 %></td>
-                                            <td style="width:49%;"><%= item.menu_name %></td>
-                                            <td style="width:49%;"><%= item.price %></td>
+                                            <td style="width:50%; text-align: center"><%= index + 1 %></td>
+                                            <td style="width:0px;"><%= item.menu_name %></td>
+                                            <td style="width:0px;"><%= item.price %></td>
                                         </tr>
                                     <% }); %>
                                 </tbody>
-                            </table>
+                              </table>
+
                             <div>
-                                <a href="/order-done %>"> <button class="add-to-cart btn btn-default" type="button">Confirm Order</button> </a>
-								
-                                <!-- <input type="submit" name="submit" value="Confirm Order" id="sendlogin" class="btn btn-primary" onclick="location.href='/checkout %>';"> -->
+                                <a href="/order-done %>"> <button class="btn btn-outline-danger" type="button">Confirm Order</button> </a>
+                                
+                                <div class="alert alert-info" role="alert" style="margin-top: 30px;">
+                                    Only Cash on delivery is available. We will continue online payment soon.
+                                </div>
+
                             </div>
                         <% }else{ %>
                             <p> <strong>There are no records available</strong> </p>
                         <% } %>
                     </div>
+                    
+                    <div class="container" style="margin-top: 100px;">
+                        <h5>Terms and Conditions</h5>
+                        <p> 1. Prices are quoted in Pakistani Rupees (PKR). You must pay in the currency in which the 
+                            product price is quoted. If you do not hold an account in relevant currency you may pay 
+                         your payment in your currenct equivalent to the value of quoted price. </p>
+                         <p> 2. Payment may be required before before the product is provided and, if not, payment is due 
+                             from the moment the order is accepted. After you have submitted your order, it may take and 
+                             shall be entitled to recieve such payment as is due in respect of the order.
+                         </p>
+                         <p> 3. Payment may be made credit card, debit card or on delivery.</p>
+                         <p> 4. We aim to debit money from your account within three working days after recieving 
+                             your order.
+                         </p>
+                         <p> 5. You will not be charged for any orders that cannot be fulfilled and where appropriate 
+                             Ligui's pizzeria will refund to your account any sum deducted by us.
+                         </p>
+                         <p> 6. Ligui's pizzeria cannot guarantee that a particular product will always be available.</p>
+                         <p> 7. Your statutory rights are unaffected by these terms.</p>
+                    </div>
 				</div>
 			</div>
 		</div>
-	</div>
+    </div>
+    <footer class="pb-50  pt-70 pos-relative">
+        <div class="pos-top triangle-bottom"></div>
+        <div class="container-fluid">
+                <a href="/"><img src="images/logo-white.png" alt="Logo"></a>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary"><b>Address:</b></p>
+                        <p> Ph-VII، DG-78, Off Khayaban-e-Tufail، Ext، Phase 7 Ext Karachi, Karachi City, Sindh 75500 </p>
+                </div>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary mb-10"><b>Phone:</b></p>
+                        <a href="tel:+92 312 2341285 "> +92 312 2341285 </a>
+                </div>
+    
+                <div class="pt-30">
+                        <p class="underline-secondary mb-10"><b>Email:</b></p>
+                        <a href="mailto:yourmail@gmail.com"> umairnadeem_7@hotmail.com </a>
+                </div>
+    
+                <ul class="icon mt-30">
+                        <li><a href="#"><i class="ion-social-pinterest"></i></a></li>
+                        <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="ion-social-dribbble-outline"></i></a></li>
+                        <li><a href="#"><i class="ion-social-linkedin"></i></a></li>
+                        <li><a href="#"><i class="ion-social-vimeo"></i></a></li>
+                </ul>
+    
+                <p class="color-light font-9 mt-50 mt-sm-30" hidden><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div><!-- container -->
+    </footer>
   </body>
 </html>
