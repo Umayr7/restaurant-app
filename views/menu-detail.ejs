@@ -69,7 +69,6 @@
 				<div class="wrapper row">
 					<div class="preview col-md-6">
 						<div class="preview-pic tab-content">
-						  <!-- <div class="tab-pane active" id="pic-1"><img src="<%= item[0].menu_image %>" /></div> -->
 						  <div class="ïmg-200x mlr-auto pos-relative"><img src="/<%= item[0].menu_image %>" alt=""></div>
 						</div>
 					</div>
@@ -100,35 +99,11 @@
 								EXTRA LARGE PIZZA: <span> Rs. <%= item[0].menu_price_xlarge %>/- </span> 
 							</label><br> </h4>
 							<div class="action">
-                                <!-- <input type="submit" name="submit" value="submit" class="btn btn-primary btn-lg"style="margin-left: -100px;" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" /> -->
-								<!-- <a href="/menu-detail/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="submit">submit</button> </a> -->
-								<!-- <a href="/cart/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="button">add to cart</button> </a> -->
-								<!-- <input type="submit" name="Checkout" value="Checkout" class="add-to-cart btn btn-default" onclick="location.href='/checkout-bypass/<%= item[0].menu_id %>';" /> -->
-								<!-- <a href="/checkout-request/<%= item[0].menu_id %>"> <button class="add-to-cart btn btn-default" type="button">Checkout</button> </a> -->
-                                <!-- <input type="submit" name="Add to Cart" value="Add to Cart" class="add-to-cart btn btn-default" onclick="location.href='/cart/<%= item[0].menu_id %>';" /> -->
-								
-								
 								<input type="submit" name="Cart" value="Add To Cart" class="add-to-cart btn btn-default" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />
 								<input type="submit" name="Checkout" value="Checkout" class="add-to-cart btn btn-default" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />
-								
-								
-								<!-- <a href="/menu-detail/<%= item[0].menu_id %>"> <button class="
-                                <input type="submit" name="submit" value="submit" class="btn btn-primary btn-lg"style="margin-left: -100px;" onclick="location.href='/menu-detail/<%= item[0].menu_id %>';" />" type="button">Checkout</button> </a> -->
+						
 							</div>
 						</form>
-						<!-- <h4 class="price">REGULAR PIZZA: <span>Rs. <%= item[0].menu_price_regular %>/-</span></h4>
-						<h4 class="price">LARGE PIZZA: <span>Rs. <%= item[0].menu_price_large %>/-</span></h4>
-						<h4 class="price">EXTRA LARGE PIZZA: <span>Rs. <%= item[0].menu_price_xlarge %>/-</span></h4> -->
-						<!-- <h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">Regular</span>
-							<span class="size" data-toggle="tooltip" title="large">Large</span>
-							<span class="size" data-toggle="tooltip" title="xl">XL</span>
-						</h5> -->
-						<!-- <h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5> -->
 					</div>
 				</div>
 			</div>

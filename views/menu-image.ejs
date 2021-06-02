@@ -73,8 +73,8 @@
                     </div>
                 </div>
                 
+                <%= typeof msg != 'undefined' ? msg : '' %>
                 <div class="row" style="margin-left: 30px;">
-                   <%= typeof msg != 'undefined' ? msg : '' %>
                     <form action="http://localhost:8000/admin/panel/menu/add-image" method="post" class="col s12" style="margin-top: 20px;" enctype="multipart/form-data">
            
                       

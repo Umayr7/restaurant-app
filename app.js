@@ -10,7 +10,6 @@ var flash = require('connect-flash')
 var session = require('express-session')
 var multer = require('multer')
 var fs = require('fs')
-var path = require('path')
 var dateFormat = require('dateformat')
 var nodemailer = require('nodemailer')
 const passport = require('passport')
@@ -23,12 +22,9 @@ var regular = ""
 var large = ""
 var xlarge = ""
 var user_obj = {}
-var val = 0
 var m_id
-var check_price = 0
 let o_id
 let get_price
-var checkout_detail = {}
 var PORT = process.env.PORT || 8000
 
 //for parsing data...
@@ -88,20 +84,17 @@ if(user_present == 0)
     
         db.query(sql, (err, result)=>{
             if(err) throw err
-    
-            console.log(result);
         })
 }
 
 app.get('/', (req, res)=>{
         let sql= "SELECT * FROM menu;"
+        
         db.query(sql, (err, result)=>{
-            console.log(result);
     
             res.render('home', {
                 user_obj: user_obj,
                 items: result,
-                val: val
         })
        
         })
@@ -162,28 +155,20 @@ app.post('/register', [
     {
         const validatedData = matchedData(req)
 
-        console.log('val data');
-        console.log(validatedData);
-        
-
         res.render('register', {
             user_obj: user_obj,
             errors: errors.mapped(),
             validatedData: validatedData
         })
-        console.log(errors);
-        
     }
     else
     {
         db.query(query, (err, result)=>{
             if(err) throw err
 
-            console.log(result);
-
-            req.flash('success', 'You are now registered and can log in!')
-            name = req.body.menu_name
             time = req.body.menu_service_time
+            name = req.body.menu_name
+            req.flash('success', 'You are now registered and can log in!')
             res.redirect('/login')
 
         })
@@ -199,15 +184,13 @@ app.get('/login', (req, res)=> {
 })
 
 app.post('/login', (req, res)=>{
-    let sql= "SELECT * FROM user WHERE user_email ='"+ req.body.user_email +"' AND user_password ='"+ req.body.user_password +"' ;"
+    let sql= "SELECT * FROM user WHERE user_email ='"+ req.body.user_email +"' "
+    sql += "AND user_password ='"+ req.body.user_password +"' ;"
     
     db.query(sql, (err, result)=>{
-        
-            console.log(result);
-            
             if(err)
             {
-                console.log("[mysql error]",err);
+                throw err;
             }
 
             if(!isEmpty(result))
@@ -218,17 +201,11 @@ app.post('/login', (req, res)=>{
                     l_name: result[0].user_last_name,
                     email: result[0].user_email
                 }
-                
-                console.log('passed')
-                console.log(result);
-                console.log(user_obj);
-                
                 user_present = 1
                 res.redirect('/bypass')
             }
             else
             {
-                console.log(result);
                 req.flash('danger', 'Invalid email or password')
                 res.redirect('/login')
             } 
@@ -239,18 +216,16 @@ app.get('/bypass', ensureUserAuthenticated, (res, req)=>{
     let now = new Date(new Date().toDateString())
     now = now.toISOString().split('T')[0]
 
-    sql = "INSERT INTO `orders` (user_id, order_date) values ('"+ JSON.stringify(user_obj.u_id) +"', '"+  dateFormat(now, "yyyy-mm-dd") +"');"
+    sql = "INSERT INTO `orders` (user_id, order_date) values ('"+ JSON.stringify(user_obj.u_id) +"'," 
+    sql += "'"+  dateFormat(now, "yyyy-mm-dd") +"');"
     sql += "SELECT order_id FROM `orders` WHERE order_id = (SELECT max(order_id) FROM `orders`);"
 
     db.query(sql, (err, data)=>{
         if(err) throw err
-    
-        console.log(data);
 
         o_id_json =  JSON.stringify(data[1])
         o_id_json_parsed =  JSON.parse(o_id_json)
         o_id = o_id_json_parsed[0]["order_id"]
-        console.log(o_id);
         
         req.redirect('/')
     })
@@ -259,17 +234,12 @@ app.get('/bypass', ensureUserAuthenticated, (res, req)=>{
 app.get('/logout', ensureUserAuthenticated, (req, res)=> {
     req.logout()
     req.flash('success', 'you are logged out')
-    console.log(`LOGGED OUT : ${JSON.stringify(user_obj)}`);
     
     sql = `UPDATE meal SET meal_log = ${0} WHERE user_id = ${JSON.stringify(user_obj.u_id)}`
 
     db.query(sql, (err, result)=>{
-        console.log(result);
-        
         user_obj = {}
-        checkout_detail = {}
         user_present = 0
-        val = 0
 
         res.render('login', {
             user_obj: user_obj
@@ -278,17 +248,11 @@ app.get('/logout', ensureUserAuthenticated, (req, res)=> {
 })
 
 app.get('/menu-detail/:id', (req, res)=>{
-
-    
-        m_id = req.params.id
-    
-    console.log(`M_ID : ${m_id}`);
+    m_id = req.params.id
     
     sql = "SELECT * FROM menu WHERE menu_id = '"+ m_id +"';"
 
     db.query(sql, (err, result)=>{
-        console.log(result);
-        
         res.render('menu-detail', {
             user_obj: user_obj,
             item: result
@@ -298,9 +262,7 @@ app.get('/menu-detail/:id', (req, res)=>{
 
 app.post('/menu-detail/:id', (req, res)=>{
     const errors = validationResult(req)
-
-    m_id = req.params.id
-  
+    
     regular = req.body.menu_price_regular
     large = req.body.menu_price_large
     xl = req.body.menu_price_xlarge
@@ -310,18 +272,14 @@ app.post('/menu-detail/:id', (req, res)=>{
         if(large != undefined || xl != undefined)
         {   
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
         else
         {
             let query = `SELECT menu_price_regular from menu WHERE menu_id = ${m_id};`
             
-            check_price = 1
-            
             db.query(query, (err,result)=>{
                 if(err) throw err
-
-                console.log(result);
                 
                 get_price_json =  JSON.stringify(result)
                 get_price_json_parsed =  JSON.parse(get_price_json)
@@ -343,13 +301,12 @@ app.post('/menu-detail/:id', (req, res)=>{
         if(regular != undefined || xl != undefined)
         {   
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
         else
         {
             let query = `SELECT menu_price_large from menu WHERE menu_id = ${m_id};`
             
-            check_price = 2
             db.query(query, (err,result)=>{
                 if(err) throw err
                 
@@ -373,13 +330,12 @@ app.post('/menu-detail/:id', (req, res)=>{
         if(large != undefined || regular != undefined)
         {
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
         else
         {
             let query = `SELECT menu_price_xlarge from menu WHERE menu_id = ${m_id};`
     
-            check_price = 3
             db.query(query, (err,result)=>{
                 if(err) throw err
                 
@@ -401,7 +357,7 @@ app.post('/menu-detail/:id', (req, res)=>{
     else
     {
         req.flash('danger', 'Please select price')
-        res.redirect('/menu-detail/:id')   
+        res.redirect(`/menu-detail/${m_id}`)   
     }   
 })
 
@@ -412,7 +368,7 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         if(large != undefined || xl != undefined)
         {
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
 
         let query = "INSERT INTO `meal` (menu_id, user_id, meal_log, order_id, meal_price) VALUES ("
@@ -421,11 +377,9 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         query += " '"+1+"',"
         query += " '"+ o_id +"',"
         query += " '"+ get_price +"');"
-        check_price = 1
+        
         db.query(query, (err,result)=>{
             if(err) throw err
-            
-            console.log(result);
             
             res.redirect('/checkout')
         })
@@ -435,7 +389,7 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         if(regular != undefined || xl != undefined)
         {
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
 
         let query = "INSERT INTO `meal` (menu_id, user_id, meal_log, order_id, meal_price) VALUES ("
@@ -445,7 +399,6 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         query += " '"+ o_id +"',"
         query += " '"+ get_price +"');"
 
-        check_price = 2
         db.query(query, (err,result)=>{
             if(err) throw err
             
@@ -457,7 +410,7 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         if(large != undefined || regular != undefined)
         {
             req.flash('danger', 'Please choose one price')
-            res.redirect('/menu-detail/:id')
+            res.redirect(`/menu-detail/${m_id}`)
         }
 
         let query = "INSERT INTO `meal` (menu_id, user_id, meal_log, order_id, meal_price) VALUES ("
@@ -467,7 +420,6 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
         query += " '"+ o_id +"',"
         query += " '"+ get_price +"');"
 
-        check_price = 3
         db.query(query, (err,result)=>{
             if(err) throw err
             
@@ -477,7 +429,7 @@ app.get('/checkout-request/:id', ensureUserAuthenticated, (req, res)=>{
     else
     {
         req.flash('danger', 'Please select price')
-        res.redirect('/menu-detail/:id')  
+        res.redirect(`/menu-detail/${m_id}`)
     }    
     
 })
@@ -488,18 +440,30 @@ app.get('/checkout', ensureUserAuthenticated, (res, req)=>{
     
     db.query(sql, (err,ans)=>{
         if(err) throw err
-
-        console.log(`CHECKK`);
-        console.log(ans);
        
         req.render('checkout', {
             items: ans,
             user_obj: user_obj,
-            check_price: check_price
         })
     })
 })
 
+app.get('/cart/:id', (req, res)=>{
+
+    let query = "INSERT INTO `meal` (menu_id, user_id, meal_log, order_id, meal_price) VALUES ("
+    query += " '"+m_id+"',"
+    query += " '"+JSON.stringify(user_obj.u_id)+"',"
+    query += " '"+1+"',"
+    query += " '"+ o_id +"',"
+    query += " '"+ get_price +"');"
+
+    db.query(query, (err,result)=>{
+        if(err) throw err
+
+        req.flash('success', 'Meal added to your cart')
+        res.redirect('/')
+    })      
+})
 
 app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
     u_email = JSON.stringify(user_obj.email)
@@ -512,8 +476,6 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
     db.query(sql, (err, result)=>{
         if(err) throw err
 
-        console.log(result);
-        
         amount = []
         m_name = []
         total=0
@@ -545,10 +507,12 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
             port: 587,
             secure: false,
             auth: {
-            } //set admin email and pass
+                user: 'postmaster@sandbox0bf740726fbb47fabfc15889b69722ed.mailgun.org',
+                pass: '92161a8cfddc933560eda8c6ba75d5ff-1b6eb03d-ba823506'
+            }
         })
         var mailOptions = {
-            //add from: admin email,
+            from: 'postmaster@sandbox0bf740726fbb47fabfc15889b69722ed.mailgun.org',
             to: u_email,
             subject: `Luigi's Pizzeria Order receipt!`,
             text: mail
@@ -556,30 +520,12 @@ app.get('/order-done', ensureUserAuthenticated, (req, res)=>{
     
         transporter.sendMail(mailOptions, (err, info)=>{
             if(err) throw err
-    
-            console.log('Email sent' + info.response)
+
             req.flash('success', 'Order Confirmed! Check email for details.')
             res.redirect('/')
         })
     })
 
-})
-
-app.get('/cart/:id', (req, res)=>{
-
-    let query = "INSERT INTO `meal` (menu_id, user_id, meal_log, order_id, meal_price) VALUES ("
-    query += " '"+m_id+"',"
-    query += " '"+JSON.stringify(user_obj.u_id)+"',"
-    query += " '"+1+"',"
-    query += " '"+ o_id +"',"
-    query += " '"+ get_price +"');"
-
-    db.query(query, (err,result)=>{
-        if(err) throw err
-        req.flash('success', 'Meal added to your cart')
-        val = val + 1;
-        res.redirect('/')
-    })      
 })
 
 function isEmpty(obj) {
@@ -592,8 +538,6 @@ function isEmpty(obj) {
 
 function ensureUserAuthenticated(req, res, next)
 {
-    console.log(res.locals.user);
-    
     if(user_present==1)
     {
         return next()

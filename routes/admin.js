@@ -33,7 +33,6 @@ const upload = multer({
 }).single('menu_image')
 
 function checkFileType(file, cb) {
-    console.log(`SIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII`);
     
     //Allowed ext
     const filetypes = /jpeg|jpg|png|gif/;
@@ -60,15 +59,13 @@ router.get('/', (req, res)=>{
 
 //Login POST
 router.post('/', (req,res, next)=>{
-    console.log('post method triggered');
-
     let sql = "SELECT * FROM user WHERE user_is_admin = '"+ 1 +"' AND user_email ='"+ req.body.user_email +"' ;"
     sql += "SELECT * FROM user WHERE user_password ='"+ req.body.user_password +"' "
     
     db.query(sql, (err, result)=>{
             if(err)
             {
-                console.log("[mysql error]",err);
+                throw err;
             }
 
             if(result[0].length > 0)
@@ -155,7 +152,7 @@ router.get('/panel/menu', ensureAuthenticated, (req, res)=>{
 
     db.query(sql, (err, result)=>{
         if(err) throw err
-
+   
         res.render('admin-panel-menu', {
             items: result
         })
@@ -232,7 +229,6 @@ router.post('/panel/menu/add-image', (req, res)=>{
     upload(req, res, (err)=>{
                 if(err) 
                 {
-                    console.log('Error!');
                     res.render('menu-image', {
                         detail: {
                             name: name,
@@ -248,8 +244,6 @@ router.post('/panel/menu/add-image', (req, res)=>{
                 {
                     if(req.file == undefined)
                     {
-                        console.log('Error: No image Selected!');
-                        
                         res.render('menu-image', {
                             detail: {
                                 name: name,
@@ -263,11 +257,10 @@ router.post('/panel/menu/add-image', (req, res)=>{
                     }
                     else
                     {
-                        path = `uploads/${req.file.filename}`
-                        sql = "UPDATE `menu` SET `menu_image` = '"+path+"' WHERE `menu_name` = '"+ name +"' ; SELECT * FROM menu ORDER BY menu_id ; "
+                        image_path = `uploads/${req.file.filename}`
+                        sql = "UPDATE `menu` SET `menu_image` = '"+image_path+"' WHERE `menu_name` = '"+ name +"' ; SELECT * FROM menu ORDER BY menu_id ; "
                         db.query(sql, (err, result)=>{
                             if(err) throw err
-                            console.log(`filename : ${path}`);
                             
                             res.render('admin-panel-menu', {
                                 items: result[1],
@@ -278,6 +271,36 @@ router.post('/panel/menu/add-image', (req, res)=>{
                     }
                 }
             })
+})
+
+
+router.get('/panel/menu/edit/:id', ensureAuthenticated, (req, res)=>{
+    db.query("SELECT * FROM menu WHERE menu_id = '"+req.params.id+"'", (err, result)=>{
+        if(err) throw err
+
+        res.render('menu-edit', {
+            item: result
+        })
+    })
+})
+
+router.post('/panel/menu/edit/:id', (req, res)=>{
+    var query = "UPDATE `menu` SET " 
+    query += "`menu_name` = '"+req.body.menu_name+"',"
+    query += "`menu_service_time` = '"+req.body.menu_service_time+"',"
+    query += "`menu_price_regular` = '"+req.body.menu_price_regular+"',"
+    query += "`menu_price_large` = '"+req.body.menu_price_large+"',"
+    query += "`menu_price_xlarge` = '"+req.body.menu_price_xlarge+"'"
+    query += " WHERE `menu`.`menu_id` = "+req.body.menu_id+" "
+
+    db.query(query, (err, result)=>{
+        if(err) throw err
+        
+        if(result.affectedRows)
+        {
+            res.redirect('/admin/panel/menu')
+        }
+    })
 })
 
 router.get('/panel/menu/delete/:id', ensureAuthenticated, (req, res)=>{
@@ -292,12 +315,13 @@ router.get('/panel/menu/delete/:id', ensureAuthenticated, (req, res)=>{
 })
 
 router.get('/panel/orders', ensureAuthenticated, (res, req)=>{
-    query = `SELECT concat(user.user_first_name, " ",user.user_last_name) AS name, menu.menu_name, meal.meal_id, meal.order_id, meal.user_id, meal.meal_price AS price FROM menu JOIN meal ON menu.menu_id=meal.menu_id JOIN user ON user.user_id=meal.user_id JOIN orders ON orders.order_id=meal.order_id ORDER BY meal.order_id DESC;`
+    query = `SELECT concat(user.user_first_name, " ",user.user_last_name) AS name, menu.menu_name, meal.meal_id, `
+    query += `meal.order_id, meal.user_id, meal.meal_price AS price FROM menu JOIN meal ON menu.menu_id=meal.menu_id `
+    query += `JOIN user ON user.user_id=meal.user_id JOIN orders ON orders.order_id=meal.order_id `
+    query += `ORDER BY meal.order_id DESC;`
     
     db.query(query, (err, result)=>{
         if(err) throw err
-        
-        console.log(result);
 
         req.render('admin-panel-orders', {
             items: result
@@ -312,11 +336,7 @@ router.get('/logout', (req, res)=>{
 })
 
 function ensureAuthenticated(req, res, next)
-{
-    console.log(res.locals.user);
-    console.log(user_present);
-    
-    
+{   
     if(user_present==1)
     {
         return next()

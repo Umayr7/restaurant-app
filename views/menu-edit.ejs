@@ -54,9 +54,9 @@
 	        </ul>
 
 	        <div class="footer">
-	        	<p hidden> Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+	        	<p hidden> Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
 						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-						   Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. </p>
+						  Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. </p>
 	        </div>
 
 	      </div>
@@ -71,50 +71,55 @@
                         <a href="#">Logout</a>
                     </div>
                 </div>
+                
                 <div class="container">
-                    <h1>Edit Customer</h1>
+                    <h1>Edit Menu</h1>
                 </div>
+                <%= typeof msg != 'undefined' ? msg : '' %>
                 <div class="row" style="margin-left: 30px;">
-                    <form action="http://localhost:8000/admin/panel/customers/edit/<%= item[0].user_id %>" method="post" class="col s12" style="margin-top: 20px;">
-                        <input type="hidden" name="user_id" value="<%= item[0].user_id %>">
+                    <form action="http://localhost:8000/admin/panel/menu/edit/<%= item[0].menu_id %>" method="post" class="col s12" style="margin-top: 20px;">
+                        <input type="hidden" name="menu_id" value="<%= item[0].menu_id %>">
                     
                         <div class="form-group row">
-                            <label for="user_first_name" class="col-2 col-form-label">First_Name</label>
-                            <div class="col-10" style="margin-top: 40px;">
-                                <input type="text" name="user_first_name" value="<%= item[0].user_first_name %>" class="form-control" style="margin-left: -100px;">
+                            <label for="menu_name" class="col-2 col-form-label">Menu_Name</label>
+                            <div class="col-10">
+                                <input style="margin-top: 0px;" type="text" name="menu_name" value="<%= item[0].menu_name %>" class="form-control" style="margin-left: -100px;">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="user_last_name" class="col-2 col-form-label">Last_Name</label>
-                            <div class="col-10" style="margin-top: 40px;">
-                                <input type="text" name="user_last_name" value="<%= item[0].user_last_name %>" class="form-control"style="margin-left: -100px;">
+                            <label for="menu_service_time" class="col-2 col-form-label">Service_Time</label>
+                            <div class="col-10">
+                                <input style="margin-top: 0px;" type="number" name="menu_service_time" value="<%= item[0].menu_service_time %>" class="form-control"style="margin-left: -100px;">          
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="user_address" class="col-2 col-form-label">Address</label>
-                            <div class="col-10" style="margin-top: 40px;">
-                                <input type="text" name="user_address" value="<%= item[0].user_address %>" class="form-control"style="margin-left: -100px;">
-                            </div>
-                        </div>                      
-                        <div class="form-group row">
-                            <label for="user_phone_no" class="col-2 col-form-label">Phone_Number</label>
-                            <div class="col-10" style="margin-top: 40px;">
-                                <input type="text" name="user_phone_no" value="<%= item[0].user_phone_no %>" class="form-control"style="margin-left: -100px;">
-                            </div>
-                        </div>                        
-                        <div class="form-group row">
-                            <label for="user_password" class="col-2 col-form-label">Password</label>
-                            <div class="col-10"style="margin-top: 40px;">
-                                <input type="password" name="user_password" value="<%= item[0].user_password %>" class="form-control"style="margin-left: -100px;">
+                            <label for="menu_price_regular" class="col-2 col-form-label">Price_Regular</label>
+                            <div class="col-10">
+                                <input style="margin-top: 0px; margin-left: 5px;" type="number" name="menu_price_regular" value="<%= item[0].menu_price_regular %>" class="form-control"style="margin-left: -100px;">            
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="submit" class="col-2 col-form-label" style="color:#ffffff">Submit</label>
+                            <label for="menu_price_large" class="col-2 col-form-label">Price_Large</label>
+                            <div class="col-10">
+                                <input style="margin-top: 0px;" type="number" name="menu_price_large" value="<%= item[0].menu_price_large %>" class="form-control"style="margin-left: -100px;">           
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="menu_price_xlarge" class="col-2 col-form-label">Price_Extra_Large</label>
+                            <div class="col-10">
+                                <input style="margin-top: 0px; margin-left: 35px;" type="number" name="menu_price_xlarge" value="<%= item[0].menu_price_xlarge %>" class="form-control"style="margin-left: -100px;">
+                            </div>
+                        </div>
+  
+                        <div class="form-group row">
+                            <label for="" class="col-2 col-form-label" style="color:#ffffff">Submit</label>
                             <div class="col-10">
                                 <input type="submit" name="submit" value="Save event" class="btn btn-primary btn-lg"style="margin-left: -100px;">
                             </div>
                         </div>
                     </form>
+
+
                 </div>
                 
 
