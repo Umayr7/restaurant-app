@@ -24,7 +24,7 @@
     "materialize-social": "^1.0.3",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
-    "nodemailer": "^6.4.8",
+    "nodemailer": "^7.0.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }
